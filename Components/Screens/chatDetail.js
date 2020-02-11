@@ -71,13 +71,7 @@ export default class chatDetail extends Component {
 
   onSend = () => {
     this.setState({
-      yourMessage: [
-        {
-          id: 1,
-          text: this.state.newMessage,
-          createdAt: new Date()
-        }
-      ],
+      yourMessage: [ ...this.state.yourMessage, this.state.newMessage],
       newMessage: ""
     });
   };
@@ -142,9 +136,9 @@ export default class chatDetail extends Component {
               >
                 <View style={{ flexDirection: "column" }}>
                   {this.state.yourMessage.map(mess => (
-                    <View style={style.chatMess}>
-                      <Text style={{ fontSize: 16, color: "#4d4d4d" }}>
-                        {mess.text}
+                    <View style={style.myMess}>
+                      <Text style={{ fontSize: 16, color: "white" }}>
+                        {mess}
                       </Text>
                     </View>
                   ))}
@@ -188,6 +182,17 @@ export default class chatDetail extends Component {
 const style = StyleSheet.create({
   chatMess: {
     backgroundColor: "white",
+    marginLeft: 10,
+    marginTop: 2,
+    marginBottom: 2,
+    paddingRight: 15,
+    paddingLeft: 15,
+    paddingTop: 7,
+    paddingBottom: 7,
+    borderRadius: 50
+  },
+  myMess: {
+    backgroundColor: "#00B2FF",
     marginLeft: 10,
     marginTop: 2,
     marginBottom: 2,
