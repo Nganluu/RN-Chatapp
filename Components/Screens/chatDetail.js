@@ -41,7 +41,7 @@ export default class chatDetail extends Component {
         <View style={style.circle}></View>
         <Text style={{ color: "white", fontSize: 20 }}>{data.name}</Text>
       </View>
-    );
+    );color: "white"
   };
 
   leftComponent = () => {

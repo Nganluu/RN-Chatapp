@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { ListItem, SearchBar, Header } from "react-native-elements";
-import ChatDetail from './chatDetail'
+import { ListItem, SearchBar, Header, Icon } from "react-native-elements";
+import ChatDetail from './chatDetail';
 
 const data = [
   {
@@ -42,11 +42,16 @@ export default class chatList extends React.Component {
   state = {
     search: ""
   };
-  onSearch = search => {
+  onSearch = (search) => {
     this.setState({ search });
   };
-  onPress = ({navigation}) => {
-    navigation.navigate('ChatDetail')
+  rightComponent = () => {
+    const {navigation} = this.props;
+    return <Icon 
+     name = 'add'
+     color = '#fff'
+     onPress = {() => navigation.navigate('AddGroup')}
+    />
   }
   render() {
     const { search } = this.state;
@@ -56,6 +61,7 @@ export default class chatList extends React.Component {
         <Header
         placement='left'
         centerComponent={{ text: "MESSENGER", style : {color: "#fff", fontSize: 20} }}
+        rightComponent = {this.rightComponent}
         />
         <SearchBar
           placeholder="Find a friend to chat"

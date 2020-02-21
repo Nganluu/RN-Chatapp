@@ -5,7 +5,7 @@ import {createBottomTabNavigator} from "react-navigation-tabs";
 import {Ionicons} from '@expo/vector-icons';
 //import screen
 import ChatList from "./Screens/chatList";
-import ChatDetail from "./Screens/chatDetail"
+import Setting from "./Screens/setting"
 
 class Tab extends Component {
   render() {
@@ -19,7 +19,7 @@ class Tab extends Component {
 const TabNavigator = createBottomTabNavigator(
   {
     ChatList: {screen: ChatList},
-    ChatBox: {screen: ChatDetail}
+    Setting: {screen: Setting}
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
@@ -30,8 +30,8 @@ const TabNavigator = createBottomTabNavigator(
           case 'ChatList':
             iconName = 'ios-list'
             break
-          case 'ChatBox': 
-            iconName = 'ios-chatbubbles'
+          case 'Setting': 
+            iconName = 'ios-settings'
             break
           default:
             break
