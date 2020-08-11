@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { ListItem, SearchBar, Header, Icon } from "react-native-elements";
 import ChatDetail from './chatDetail';
+import io from "socket.io-client";
 
 const data = [
   {
@@ -39,6 +40,10 @@ const data = [
 ];
 
 export default class chatList extends React.Component {
+  constructor(props){
+    super(props);
+   
+  }
   state = {
     search: ""
   };

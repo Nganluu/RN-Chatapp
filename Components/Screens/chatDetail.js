@@ -7,16 +7,23 @@ import {
   TextInput,
   FlatList
 } from "react-native";
+import io from "socket.io-client";
 import { Header, Icon, ListItem, Avatar } from "react-native-elements";
-import { GiftedChat } from "react-native-gifted-chat";
-import { AuthSession } from "expo";
 
 export default class chatDetail extends Component {
-  state = {
-    newMessage: "",
-    messages: [],
-    yourMessage: []
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      newMessage: "",
+      messages: [],
+      yourMessage: []
+    };
+    this.socket = io("http://192.168.1.194:5000", { jsonp: false });
+    // socket.on("connecting", ()=>{
+    //   console.log("hello socket")
+    // })
+  }
+
   componentDidMount() {
     const { data } = this.props.navigation.state.params;
     this.setState({
@@ -41,7 +48,8 @@ export default class chatDetail extends Component {
         <View style={style.circle}></View>
         <Text style={{ color: "white", fontSize: 20 }}>{data.name}</Text>
       </View>
-    );color: "white"
+    );
+    color: "white";
   };
 
   leftComponent = () => {
@@ -70,19 +78,21 @@ export default class chatDetail extends Component {
   // }
 
   onSend = () => {
-    this.setState({
-      yourMessage: [ ...this.state.yourMessage, this.state.newMessage],
-      newMessage: ""
-    });
+    if (this.state.newMessage) {
+      this.socket.emit("send-message", this.state.newMessage);
+      console.log("socket")
+      this.setState({
+        yourMessage: [...this.state.yourMessage, this.state.newMessage],
+        newMessage: ""
+      });
+    }
   };
   render() {
     const { data } = this.props.navigation.state.params;
-    console.log(this.state.yourMessage);
     return (
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
-          justifyContent: "space-between",
           flexDirection: "column"
         }}
       >
@@ -95,7 +105,7 @@ export default class chatDetail extends Component {
           {this.state.messages
             ? this.state.messages.map(data => (
                 <ListItem
-                containerStyle = {{backgroundColor: ''}}
+                  containerStyle = {{backgroundColor: ''}}
                   key={data.id}
                   leftAvatar={{ source: { uri: data.user.avatar } }}
                 />
@@ -110,7 +120,8 @@ export default class chatDetail extends Component {
               <View
                 style={{
                   padding: 15,
-                  flexDirection: "row"
+                  flexDirection: "row",
+                  justifyContent: "flex-start"
                 }}
               >
                 <Avatar
@@ -134,7 +145,12 @@ export default class chatDetail extends Component {
                   flexDirection: "row-reverse"
                 }}
               >
-                <View style={{ flexDirection: "column" }}>
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "flex-start"
+                  }}
+                >
                   {this.state.yourMessage.map(mess => (
                     <View style={style.myMess}>
                       <Text style={{ fontSize: 16, color: "white" }}>
@@ -182,6 +198,8 @@ export default class chatDetail extends Component {
 const style = StyleSheet.create({
   chatMess: {
     backgroundColor: "white",
+    flexDirection: "row",
+    justifyContent: "flex-start",
     marginLeft: 10,
     marginTop: 2,
     marginBottom: 2,

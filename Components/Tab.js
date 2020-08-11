@@ -7,11 +7,24 @@ import {Ionicons} from '@expo/vector-icons';
 import ChatList from "./Screens/chatList";
 import Setting from "./Screens/setting"
 
+const io = require('socket.io-client');
+
+
 class Tab extends Component {
+  // constructor(props){
+  //   super(props);
+  //   this.socket = io("http://192.168.11.6:5000", {jsonp: false} )
+  // }
+  componentDidMount(){
+    const socket = io("http://192.168.11.6:5000", {jsonp: false});
+    socket.on("connecting",()=>{
+      console.log("connected socket");
+    })
+  }
   render() {
     return (
       <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-        <Text>hell222o</Text>
+        <Text>hello</Text>
       </View>
     );
   }
