@@ -1,0 +1,27 @@
+{
+    "development": {
+        "username": "root",
+        "password": "1",
+        "database": "chat_server",
+        "host": "127.0.0.1",
+        "dialect": "mysql",
+        "operatorsAliases": "0"
+    },
+    "test": {
+        "username": "ngan",
+        "password": "password",
+        "database": "chat_server",
+        "host": "127.0.0.1",
+        "dialect": "mysql",
+        "operatorsAliases": "0"
+    },
+    "production": {
+        "username": "ngan",
+        "password": "password",
+        "database": "chat_server",
+        "host": "127.0.0.1",
+        "dialect": "mysql",
+        "operatorsAliases": "0"
+    },
+    "secret": "nganluuismakingtheappchat"
+}
